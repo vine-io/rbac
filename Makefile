@@ -10,6 +10,7 @@ BUILD_DATE=$(shell date +%s)
 LDFLAGS=-X $(GIT_VERSION).GitCommit=$(GIT_COMMIT) -X $(GIT_VERSION).GitTag=$(GIT_TAG) -X $(GIT_VERSION).BuildDate=$(BUILD_DATE)
 
 generate:
+	goproto-gen -p $(PACKAGE)/api
 	cd $(PROTODIR)/src && \
 	protoc -I=$(PROTODIR)/src -I=$(DIR)/vendor --gogo_out=:. --vine_out=:. $(PACKAGE)/api/rpc.proto
 

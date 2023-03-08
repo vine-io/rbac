@@ -26,5 +26,4 @@ extract/data
 
 build/ssl/*.csr
 
-*.pb.go
 *.sqlite.db

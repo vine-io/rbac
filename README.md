@@ -1,11 +1,14 @@
-package rbac
+# usage
+
+```go
+package main
 
 import (
 	"context"
 	"log"
 	"os"
-	"testing"
 
+	"github.com/vine-io/rbac"
 	"github.com/vine-io/rbac/adpter"
 	"github.com/vine-io/vine/lib/api"
 	"gorm.io/driver/sqlite"
@@ -14,10 +17,10 @@ import (
 
 const dsn = "rbac.sqlite.db"
 
-func TestNewRBAC(t *testing.T) {
+func main() {
 	db, err := gorm.Open(sqlite.Open(dsn))
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
 
 	defer os.Remove(dsn)
@@ -27,14 +30,14 @@ func TestNewRBAC(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	cfg, err := NewConfig(apt)
+	cfg, err := rbac.NewConfig(apt)
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
 
-	r, err := NewRBAC(cfg)
+	r, err := rbac.NewRBAC(cfg)
 	if err != nil {
-		t.Fatal(err)
+		log.Fatal(err)
 	}
 
 	r.Enforce(context.TODO(), "user", &api.Endpoint{
@@ -43,3 +46,5 @@ func TestNewRBAC(t *testing.T) {
 		Method: []string{"read"},
 	})
 }
+
+```

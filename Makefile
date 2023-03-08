@@ -1,9 +1,17 @@
+NAME=$(shell echo "rbac")
+PROTODIR=$(shell go env GOPATH)
+DIR=$(shell pwd)
+PACKAGE=github.com/vine-io/rbac
 GIT_COMMIT=$(shell git rev-parse --short HEAD)
 GIT_TAG=$(shell git describe --abbrev=0 --tags --always --match "v*")
 GIT_VERSION=github.com/vine-io/rbac/pkg/internal/doc
 CGO_ENABLED=0
 BUILD_DATE=$(shell date +%s)
 LDFLAGS=-X $(GIT_VERSION).GitCommit=$(GIT_COMMIT) -X $(GIT_VERSION).GitTag=$(GIT_TAG) -X $(GIT_VERSION).BuildDate=$(BUILD_DATE)
+
+generate:
+	cd $(PROTODIR)/src && \
+	protoc -I=$(PROTODIR)/src -I=$(DIR)/vendor --gogo_out=:. --vine_out=:. $(PACKAGE)/api/rpc.proto
 
 release:
 ifeq "$(TAG)" ""
@@ -79,4 +87,4 @@ lint:
 clean:
 	rm -fr vendor
 
-.PHONY: release build-tag vendor install build-darwin build-windows build-linux build tar clean
+.PHONY: generate release build-tag vendor install build-darwin build-windows build-linux build tar clean

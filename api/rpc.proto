@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "github.com/vine-io/rbac/api";
+option java_package = "io.vine.services.rbac";
+option java_multiple_files = true;
+
+import "github.com/vine-io/rbac/api/rbac.proto";
+import "github.com/vine-io/vine/lib/api/api.proto";
+
+/*
+AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
+	DelPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
+	AddGroupPolicy(ctx context.Context, subject *api.Subject) error
+	DelGroupPolicy(ctx context.Context, subject *api.Subject) error
+	Enforce(ctx context.Context, sub string, endpoint *vapi.Endpoint) (bool, error)
+ */
+
+// +gen:openapi
+service RBACService {
+    rpc AddPolicy(AddPolicyRequest) returns (AddPolicyResponse);
+    rpc AddGroupPolicy(AddGroupPolicyRequest) returns (AddGroupPolicyResponse);
+    rpc DelGroupPolicy(DelGroupPolicyRequest) returns (DelGroupPolicyResponse);
+    rpc Enforce(EnforceRequest) returns (EnforceResponse);
+}
+
+message AddPolicyRequest {
+    // +gen:required
+    string sub = 1;
+    // +gen:required
+    api.Endpoint endpoint = 2;
+}
+
+message AddPolicyResponse {}
+
+message AddGroupPolicyRequest {
+    // +gen:required
+    api.Subject subject = 1;
+}
+
+message AddGroupPolicyResponse {}
+
+message DelGroupPolicyRequest {
+    // +gen:required
+    api.Subject subject = 1;
+}
+
+message DelGroupPolicyResponse {}
+
+message EnforceRequest {
+    // +gen:required
+    string sub = 1;
+    // +gen:required
+    api.Endpoint endpoint = 2;
+}
+
+message EnforceResponse {
+    bool result = 1;
+}

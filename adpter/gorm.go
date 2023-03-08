@@ -54,6 +54,10 @@ func NewGormAdapter(db *gorm.DB) (*GormAdapter, error) {
 
 	a := &GormAdapter{db: db}
 	a.tableName = (&Rule{}).TableName()
+	err = db.AutoMigrate(&Rule{})
+	if err != nil {
+		return nil, err
+	}
 
 	return a, nil
 }

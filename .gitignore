@@ -25,3 +25,6 @@ extract/data
 .DS_Store
 
 build/ssl/*.csr
+
+*.pb.go
+*.sqlite.db

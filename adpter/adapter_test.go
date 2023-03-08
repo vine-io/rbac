@@ -2,6 +2,7 @@ package adpter
 
 import (
 	"log"
+	"os"
 	"testing"
 
 	"github.com/casbin/casbin/v2"
@@ -9,14 +10,11 @@ import (
 	"github.com/casbin/casbin/v2/util"
 	"github.com/stretchr/testify/assert"
 	clientv3 "go.etcd.io/etcd/client/v3"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-const (
-	dbName = "postgres"
-	dsn    = `host=192.168.2.95 user=postgres password=howlink dbname=foo port=55432 sslmode=disable TimeZone=Asia/Shanghai`
-)
+const dsn = "test.sqlite.db"
 
 func testGetPolicy(t *testing.T, e *casbin.Enforcer, res [][]string) {
 	myRes := e.GetPolicy()
@@ -74,7 +72,7 @@ func arrayEqualsWithoutOrder(a [][]string, b [][]string) bool {
 func initPolicy(t *testing.T, a persist.Adapter) {
 	// Because the DB is empty at first,
 	// so we need to load the policy from the file adapter (.CSV) first.
-	e, err := casbin.NewEnforcer("../examples/rbac_model.conf", "../examples/rbac_policy.csv")
+	e, err := casbin.NewEnforcer("../examples/rbac_model.conf", a)
 	if err != nil {
 		panic(err)
 	}
@@ -243,10 +241,11 @@ func testUpdateFilteredPolicies(t *testing.T, a *GormAdapter) {
 }
 
 func TestAdapters(t *testing.T) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
+	defer os.Remove(dsn)
 
 	a := initAdapterWithGormInstance(t, db)
 
@@ -270,7 +269,7 @@ func TestEtcdAdapters(t *testing.T) {
 }
 
 func TestPolicy(t *testing.T) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -283,7 +282,7 @@ func TestPolicy(t *testing.T) {
 }
 
 func TestAddPolicies(t *testing.T) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -365,7 +364,7 @@ func TestEtcdAddPolicies(t *testing.T) {
 }
 
 func TestTransaction(t *testing.T) {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

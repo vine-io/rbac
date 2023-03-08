@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/casbin/casbin/v2 v2.64.0
 	github.com/stretchr/testify v1.8.1
-	github.com/vine-io/vine v1.5.6
+	github.com/vine-io/vine v1.5.7
 	go.etcd.io/etcd/client/v3 v3.5.7
 	gorm.io/driver/postgres v1.4.8
 	gorm.io/gorm v1.24.5

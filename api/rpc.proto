@@ -18,19 +18,29 @@ AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
 
 // +gen:openapi
 service RBACService {
-    rpc GetPolicy(GetPolicyRequest) returns (GetPolicyResponse);
+    rpc GetAllPolicies(GetAllPoliciesRequest) returns (GetAllPoliciesResponse);
+    rpc GetPolicies(GetPoliciesRequest) returns (GetPoliciesResponse);
     rpc AddPolicy(AddPolicyRequest) returns (AddPolicyResponse);
     rpc DelPolicy(DelPolicyRequest) returns (DelPolicyResponse);
+    rpc GetGroupPolicies(GetGroupPoliciesRequest) returns (GetGroupPoliciesResponse);
     rpc AddGroupPolicy(AddGroupPolicyRequest) returns (AddGroupPolicyResponse);
     rpc DelGroupPolicy(DelGroupPolicyRequest) returns (DelGroupPolicyResponse);
     rpc Enforce(EnforceRequest) returns (EnforceResponse);
 }
 
-message GetPolicyRequest {}
+message GetAllPoliciesRequest {}
 
-message GetPolicyResponse {
+message GetAllPoliciesResponse {
     repeated api.Policy policies = 1;
     repeated api.Subject subjects = 2;
+}
+
+message GetPoliciesRequest {
+    string sub = 1;
+}
+
+message GetPoliciesResponse {
+    repeated api.Policy policies = 1;
 }
 
 message AddPolicyRequest {
@@ -46,6 +56,15 @@ message DelPolicyRequest {
 }
 
 message DelPolicyResponse {}
+
+message GetGroupPoliciesRequest {
+    api.PType ptype = 1;
+    string sub = 2;
+}
+
+message GetGroupPoliciesResponse {
+    repeated api.Subject subjects = 2;
+}
 
 message AddGroupPolicyRequest {
     // +gen:required

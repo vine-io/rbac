@@ -129,11 +129,23 @@ func testServer(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	rsps, err := client.GetPolicy(ctx, &api.GetPolicyRequest{})
+	rsps, err := client.GetAllPolicies(ctx, &api.GetAllPoliciesRequest{})
 	if err != nil {
 		t.Fatal(err)
 	}
 	t.Log(rsps.Policies, rsps.Subjects)
+
+	rr, err := client.GetPolicies(ctx, &api.GetPoliciesRequest{Sub: "lack"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rr.Policies)
+
+	rs, err := client.GetGroupPolicies(ctx, &api.GetGroupPoliciesRequest{Ptype: api.PType_ROLE, Sub: "lack"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rs.Subjects)
 
 	_, err = client.DelGroupPolicy(ctx, &api.DelGroupPolicyRequest{
 		Subject: &api.Subject{

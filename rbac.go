@@ -12,9 +12,11 @@ import (
 )
 
 type RBAC interface {
-	GetPolicy(ctx context.Context) ([]*api.Policy, []*api.Subject)
+	GetAllPolicies(ctx context.Context) ([]*api.Policy, []*api.Subject)
+	GetPolicies(ctx context.Context, sub string) []*api.Policy
 	AddPolicy(ctx context.Context, p *api.Policy) error
 	DelPolicy(ctx context.Context, p *api.Policy) error
+	GetGroupPolicies(ctx context.Context, p api.PType, sub string) []*api.Subject
 	AddGroupPolicy(ctx context.Context, subject *api.Subject) error
 	DelGroupPolicy(ctx context.Context, subject *api.Subject) error
 	Enforce(ctx context.Context, p *api.Policy) (bool, error)
@@ -83,7 +85,7 @@ func NewRBAC(cfg Config) (RBAC, error) {
 	return &rbac{Config: cfg, e: e}, nil
 }
 
-func (r *rbac) GetPolicy(ctx context.Context) ([]*api.Policy, []*api.Subject) {
+func (r *rbac) GetAllPolicies(ctx context.Context) ([]*api.Policy, []*api.Subject) {
 
 	policies := make([]*api.Policy, 0)
 	subjects := make([]*api.Subject, 0)
@@ -122,6 +124,31 @@ func (r *rbac) GetPolicy(ctx context.Context) ([]*api.Policy, []*api.Subject) {
 	return policies, subjects
 }
 
+func (r *rbac) GetPolicies(ctx context.Context, sub string) []*api.Policy {
+
+	policies := make([]*api.Policy, 0)
+
+	lines := r.e.GetFilteredPolicy(0, sub)
+	for _, line := range lines {
+		if len(line) < 3 {
+			continue
+		}
+		ep := &vapi.Endpoint{
+			Name:   line[1],
+			Method: line[2:],
+			Entity: line[1],
+		}
+		p := &api.Policy{
+			Ptype:    api.PType_POLICY,
+			Sub:      line[0],
+			Endpoint: ep,
+		}
+		policies = append(policies, p)
+	}
+
+	return policies
+}
+
 func (r *rbac) AddPolicy(ctx context.Context, p *api.Policy) error {
 	obj, act := parseEndpoint(p.Endpoint)
 
@@ -150,6 +177,25 @@ func (r *rbac) DelPolicy(ctx context.Context, p *api.Policy) error {
 	}
 
 	return nil
+}
+
+func (r *rbac) GetGroupPolicies(ctx context.Context, p api.PType, sub string) []*api.Subject {
+	subjects := make([]*api.Subject, 0)
+
+	groups := r.e.GetFilteredNamedGroupingPolicy(p.Name(), 1, sub)
+	for _, group := range groups {
+		if len(group) < 3 {
+			continue
+		}
+		s := &api.Subject{
+			Ptype: api.ParsePtype(group[0]),
+			User:  group[1],
+			Group: group[2],
+		}
+		subjects = append(subjects, s)
+	}
+
+	return subjects
 }
 
 func (r *rbac) AddGroupPolicy(ctx context.Context, subject *api.Subject) error {

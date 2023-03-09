@@ -86,7 +86,10 @@ func TestNewRBAC(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	policy, subjects := r.GetPolicy(ctx)
+	policy, subjects := r.GetAllPolicies(ctx)
 	t.Log(policy)
 	t.Log(subjects)
+
+	t.Log(r.GetPolicies(ctx, "lack"))
+	t.Log(r.GetGroupPolicies(ctx, api.PType_ROLE, "lack"))
 }

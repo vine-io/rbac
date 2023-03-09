@@ -36,8 +36,13 @@ func NewRBACServerWithApt(s vine.Service, apt persist.Adapter) (*RBACServer, err
 	return server, nil
 }
 
-func (s *RBACServer) GetPolicy(ctx context.Context, req *api.GetPolicyRequest, rsp *api.GetPolicyResponse) (err error) {
-	rsp.Policies, rsp.Subjects = s.r.GetPolicy(ctx)
+func (s *RBACServer) GetAllPolicies(ctx context.Context, req *api.GetAllPoliciesRequest, rsp *api.GetAllPoliciesResponse) (err error) {
+	rsp.Policies, rsp.Subjects = s.r.GetAllPolicies(ctx)
+	return
+}
+
+func (s *RBACServer) GetPolicies(ctx context.Context, req *api.GetPoliciesRequest, rsp *api.GetPoliciesResponse) (err error) {
+	rsp.Policies = s.r.GetPolicies(ctx, req.Sub)
 	return
 }
 
@@ -56,6 +61,11 @@ func (s *RBACServer) DelPolicy(ctx context.Context, req *api.DelPolicyRequest, r
 	}
 
 	err = s.r.DelPolicy(ctx, req.Policy)
+	return
+}
+
+func (s *RBACServer) GetGroupPolicies(ctx context.Context, req *api.GetGroupPoliciesRequest, rsp *api.GetGroupPoliciesResponse) (err error) {
+	rsp.Subjects = s.r.GetGroupPolicies(ctx, req.Ptype, req.Sub)
 	return
 }
 

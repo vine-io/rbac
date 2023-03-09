@@ -26,7 +26,7 @@ func main() {
 
 	defer os.Remove(dsn)
 
-	apt, err := adpter.NewGormAdapter(db)
+	apt, err := adapter.NewGormAdapter(db)
 	if err != nil {
 		log.Fatal(err)
 	}

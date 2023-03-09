@@ -27,21 +27,21 @@ var _ = ebinary.BigEndian
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-type GetPolicyRequest struct {
+type GetAllPoliciesRequest struct {
 }
 
-func (m *GetPolicyRequest) Reset()         { *m = GetPolicyRequest{} }
-func (m *GetPolicyRequest) String() string { return proto.CompactTextString(m) }
-func (*GetPolicyRequest) ProtoMessage()    {}
-func (*GetPolicyRequest) Descriptor() ([]byte, []int) {
+func (m *GetAllPoliciesRequest) Reset()         { *m = GetAllPoliciesRequest{} }
+func (m *GetAllPoliciesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllPoliciesRequest) ProtoMessage()    {}
+func (*GetAllPoliciesRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_cd9060b076f5d7dc, []int{0}
 }
-func (m *GetPolicyRequest) XXX_Unmarshal(b []byte) error {
+func (m *GetAllPoliciesRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *GetPolicyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *GetAllPoliciesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_GetPolicyRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_GetAllPoliciesRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -51,35 +51,35 @@ func (m *GetPolicyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, er
 		return b[:n], nil
 	}
 }
-func (m *GetPolicyRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetPolicyRequest.Merge(m, src)
+func (m *GetAllPoliciesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllPoliciesRequest.Merge(m, src)
 }
-func (m *GetPolicyRequest) XXX_Size() int {
+func (m *GetAllPoliciesRequest) XXX_Size() int {
 	return m.XSize()
 }
-func (m *GetPolicyRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetPolicyRequest.DiscardUnknown(m)
+func (m *GetAllPoliciesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllPoliciesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetPolicyRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetAllPoliciesRequest proto.InternalMessageInfo
 
-type GetPolicyResponse struct {
+type GetAllPoliciesResponse struct {
 	Policies []*Policy  `protobuf:"bytes,1,rep,name=policies,proto3" json:"policies,omitempty"`
 	Subjects []*Subject `protobuf:"bytes,2,rep,name=subjects,proto3" json:"subjects,omitempty"`
 }
 
-func (m *GetPolicyResponse) Reset()         { *m = GetPolicyResponse{} }
-func (m *GetPolicyResponse) String() string { return proto.CompactTextString(m) }
-func (*GetPolicyResponse) ProtoMessage()    {}
-func (*GetPolicyResponse) Descriptor() ([]byte, []int) {
+func (m *GetAllPoliciesResponse) Reset()         { *m = GetAllPoliciesResponse{} }
+func (m *GetAllPoliciesResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllPoliciesResponse) ProtoMessage()    {}
+func (*GetAllPoliciesResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_cd9060b076f5d7dc, []int{1}
 }
-func (m *GetPolicyResponse) XXX_Unmarshal(b []byte) error {
+func (m *GetAllPoliciesResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *GetPolicyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *GetAllPoliciesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_GetPolicyResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_GetAllPoliciesResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -89,17 +89,91 @@ func (m *GetPolicyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *GetPolicyResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetPolicyResponse.Merge(m, src)
+func (m *GetAllPoliciesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllPoliciesResponse.Merge(m, src)
 }
-func (m *GetPolicyResponse) XXX_Size() int {
+func (m *GetAllPoliciesResponse) XXX_Size() int {
 	return m.XSize()
 }
-func (m *GetPolicyResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetPolicyResponse.DiscardUnknown(m)
+func (m *GetAllPoliciesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllPoliciesResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetPolicyResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetAllPoliciesResponse proto.InternalMessageInfo
+
+type GetPoliciesRequest struct {
+	Sub string `protobuf:"bytes,1,opt,name=sub,proto3" json:"sub,omitempty"`
+}
+
+func (m *GetPoliciesRequest) Reset()         { *m = GetPoliciesRequest{} }
+func (m *GetPoliciesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetPoliciesRequest) ProtoMessage()    {}
+func (*GetPoliciesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9060b076f5d7dc, []int{2}
+}
+func (m *GetPoliciesRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetPoliciesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetPoliciesRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetPoliciesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPoliciesRequest.Merge(m, src)
+}
+func (m *GetPoliciesRequest) XXX_Size() int {
+	return m.XSize()
+}
+func (m *GetPoliciesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPoliciesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetPoliciesRequest proto.InternalMessageInfo
+
+type GetPoliciesResponse struct {
+	Policies []*Policy `protobuf:"bytes,1,rep,name=policies,proto3" json:"policies,omitempty"`
+}
+
+func (m *GetPoliciesResponse) Reset()         { *m = GetPoliciesResponse{} }
+func (m *GetPoliciesResponse) String() string { return proto.CompactTextString(m) }
+func (*GetPoliciesResponse) ProtoMessage()    {}
+func (*GetPoliciesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9060b076f5d7dc, []int{3}
+}
+func (m *GetPoliciesResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetPoliciesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetPoliciesResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetPoliciesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetPoliciesResponse.Merge(m, src)
+}
+func (m *GetPoliciesResponse) XXX_Size() int {
+	return m.XSize()
+}
+func (m *GetPoliciesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetPoliciesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetPoliciesResponse proto.InternalMessageInfo
 
 type AddPolicyRequest struct {
 	// +gen:required
@@ -110,7 +184,7 @@ func (m *AddPolicyRequest) Reset()         { *m = AddPolicyRequest{} }
 func (m *AddPolicyRequest) String() string { return proto.CompactTextString(m) }
 func (*AddPolicyRequest) ProtoMessage()    {}
 func (*AddPolicyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{2}
+	return fileDescriptor_cd9060b076f5d7dc, []int{4}
 }
 func (m *AddPolicyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -146,7 +220,7 @@ func (m *AddPolicyResponse) Reset()         { *m = AddPolicyResponse{} }
 func (m *AddPolicyResponse) String() string { return proto.CompactTextString(m) }
 func (*AddPolicyResponse) ProtoMessage()    {}
 func (*AddPolicyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{3}
+	return fileDescriptor_cd9060b076f5d7dc, []int{5}
 }
 func (m *AddPolicyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -184,7 +258,7 @@ func (m *DelPolicyRequest) Reset()         { *m = DelPolicyRequest{} }
 func (m *DelPolicyRequest) String() string { return proto.CompactTextString(m) }
 func (*DelPolicyRequest) ProtoMessage()    {}
 func (*DelPolicyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{4}
+	return fileDescriptor_cd9060b076f5d7dc, []int{6}
 }
 func (m *DelPolicyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -220,7 +294,7 @@ func (m *DelPolicyResponse) Reset()         { *m = DelPolicyResponse{} }
 func (m *DelPolicyResponse) String() string { return proto.CompactTextString(m) }
 func (*DelPolicyResponse) ProtoMessage()    {}
 func (*DelPolicyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{5}
+	return fileDescriptor_cd9060b076f5d7dc, []int{7}
 }
 func (m *DelPolicyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -249,6 +323,81 @@ func (m *DelPolicyResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DelPolicyResponse proto.InternalMessageInfo
 
+type GetGroupPoliciesRequest struct {
+	Ptype PType  `protobuf:"varint,1,opt,name=ptype,proto3,enum=api.PType" json:"ptype,omitempty"`
+	Sub   string `protobuf:"bytes,2,opt,name=sub,proto3" json:"sub,omitempty"`
+}
+
+func (m *GetGroupPoliciesRequest) Reset()         { *m = GetGroupPoliciesRequest{} }
+func (m *GetGroupPoliciesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetGroupPoliciesRequest) ProtoMessage()    {}
+func (*GetGroupPoliciesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9060b076f5d7dc, []int{8}
+}
+func (m *GetGroupPoliciesRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetGroupPoliciesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetGroupPoliciesRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetGroupPoliciesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetGroupPoliciesRequest.Merge(m, src)
+}
+func (m *GetGroupPoliciesRequest) XXX_Size() int {
+	return m.XSize()
+}
+func (m *GetGroupPoliciesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetGroupPoliciesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetGroupPoliciesRequest proto.InternalMessageInfo
+
+type GetGroupPoliciesResponse struct {
+	Subjects []*Subject `protobuf:"bytes,2,rep,name=subjects,proto3" json:"subjects,omitempty"`
+}
+
+func (m *GetGroupPoliciesResponse) Reset()         { *m = GetGroupPoliciesResponse{} }
+func (m *GetGroupPoliciesResponse) String() string { return proto.CompactTextString(m) }
+func (*GetGroupPoliciesResponse) ProtoMessage()    {}
+func (*GetGroupPoliciesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cd9060b076f5d7dc, []int{9}
+}
+func (m *GetGroupPoliciesResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *GetGroupPoliciesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_GetGroupPoliciesResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *GetGroupPoliciesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetGroupPoliciesResponse.Merge(m, src)
+}
+func (m *GetGroupPoliciesResponse) XXX_Size() int {
+	return m.XSize()
+}
+func (m *GetGroupPoliciesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetGroupPoliciesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetGroupPoliciesResponse proto.InternalMessageInfo
+
 type AddGroupPolicyRequest struct {
 	// +gen:required
 	Subject *Subject `protobuf:"bytes,1,opt,name=subject,proto3" json:"subject,omitempty"`
@@ -258,7 +407,7 @@ func (m *AddGroupPolicyRequest) Reset()         { *m = AddGroupPolicyRequest{} }
 func (m *AddGroupPolicyRequest) String() string { return proto.CompactTextString(m) }
 func (*AddGroupPolicyRequest) ProtoMessage()    {}
 func (*AddGroupPolicyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{6}
+	return fileDescriptor_cd9060b076f5d7dc, []int{10}
 }
 func (m *AddGroupPolicyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -294,7 +443,7 @@ func (m *AddGroupPolicyResponse) Reset()         { *m = AddGroupPolicyResponse{}
 func (m *AddGroupPolicyResponse) String() string { return proto.CompactTextString(m) }
 func (*AddGroupPolicyResponse) ProtoMessage()    {}
 func (*AddGroupPolicyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{7}
+	return fileDescriptor_cd9060b076f5d7dc, []int{11}
 }
 func (m *AddGroupPolicyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -332,7 +481,7 @@ func (m *DelGroupPolicyRequest) Reset()         { *m = DelGroupPolicyRequest{} }
 func (m *DelGroupPolicyRequest) String() string { return proto.CompactTextString(m) }
 func (*DelGroupPolicyRequest) ProtoMessage()    {}
 func (*DelGroupPolicyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{8}
+	return fileDescriptor_cd9060b076f5d7dc, []int{12}
 }
 func (m *DelGroupPolicyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -368,7 +517,7 @@ func (m *DelGroupPolicyResponse) Reset()         { *m = DelGroupPolicyResponse{}
 func (m *DelGroupPolicyResponse) String() string { return proto.CompactTextString(m) }
 func (*DelGroupPolicyResponse) ProtoMessage()    {}
 func (*DelGroupPolicyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{9}
+	return fileDescriptor_cd9060b076f5d7dc, []int{13}
 }
 func (m *DelGroupPolicyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -406,7 +555,7 @@ func (m *EnforceRequest) Reset()         { *m = EnforceRequest{} }
 func (m *EnforceRequest) String() string { return proto.CompactTextString(m) }
 func (*EnforceRequest) ProtoMessage()    {}
 func (*EnforceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{10}
+	return fileDescriptor_cd9060b076f5d7dc, []int{14}
 }
 func (m *EnforceRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -443,7 +592,7 @@ func (m *EnforceResponse) Reset()         { *m = EnforceResponse{} }
 func (m *EnforceResponse) String() string { return proto.CompactTextString(m) }
 func (*EnforceResponse) ProtoMessage()    {}
 func (*EnforceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cd9060b076f5d7dc, []int{11}
+	return fileDescriptor_cd9060b076f5d7dc, []int{15}
 }
 func (m *EnforceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -473,12 +622,16 @@ func (m *EnforceResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_EnforceResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*GetPolicyRequest)(nil), "api.GetPolicyRequest")
-	proto.RegisterType((*GetPolicyResponse)(nil), "api.GetPolicyResponse")
+	proto.RegisterType((*GetAllPoliciesRequest)(nil), "api.GetAllPoliciesRequest")
+	proto.RegisterType((*GetAllPoliciesResponse)(nil), "api.GetAllPoliciesResponse")
+	proto.RegisterType((*GetPoliciesRequest)(nil), "api.GetPoliciesRequest")
+	proto.RegisterType((*GetPoliciesResponse)(nil), "api.GetPoliciesResponse")
 	proto.RegisterType((*AddPolicyRequest)(nil), "api.AddPolicyRequest")
 	proto.RegisterType((*AddPolicyResponse)(nil), "api.AddPolicyResponse")
 	proto.RegisterType((*DelPolicyRequest)(nil), "api.DelPolicyRequest")
 	proto.RegisterType((*DelPolicyResponse)(nil), "api.DelPolicyResponse")
+	proto.RegisterType((*GetGroupPoliciesRequest)(nil), "api.GetGroupPoliciesRequest")
+	proto.RegisterType((*GetGroupPoliciesResponse)(nil), "api.GetGroupPoliciesResponse")
 	proto.RegisterType((*AddGroupPolicyRequest)(nil), "api.AddGroupPolicyRequest")
 	proto.RegisterType((*AddGroupPolicyResponse)(nil), "api.AddGroupPolicyResponse")
 	proto.RegisterType((*DelGroupPolicyRequest)(nil), "api.DelGroupPolicyRequest")
@@ -492,38 +645,45 @@ func init() {
 }
 
 var fileDescriptor_cd9060b076f5d7dc = []byte{
-	// 443 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x94, 0xcf, 0x8f, 0xd2, 0x40,
-	0x14, 0xc7, 0x5b, 0x49, 0x58, 0xf6, 0x61, 0xd6, 0xdd, 0x59, 0x21, 0x4d, 0x37, 0x69, 0x36, 0x35,
-	0x22, 0x1e, 0x6c, 0x13, 0xd4, 0x98, 0x70, 0x31, 0x20, 0x86, 0x78, 0x23, 0xe5, 0xe6, 0xad, 0x3f,
-	0x06, 0x1d, 0x53, 0x99, 0xb1, 0xd3, 0x92, 0xf0, 0x47, 0x98, 0xf8, 0x67, 0x71, 0xe4, 0xe8, 0x51,
-	0xe1, 0x1f, 0x31, 0x6d, 0x1f, 0x85, 0x16, 0x42, 0xa2, 0x1e, 0x79, 0xef, 0x7d, 0x3f, 0xaf, 0xe5,
-	0x33, 0x1d, 0x78, 0xfa, 0x89, 0xc5, 0x9f, 0x13, 0xcf, 0xf2, 0xf9, 0x57, 0x7b, 0xc1, 0xe6, 0xf4,
-	0x05, 0xe3, 0x76, 0xe4, 0xb9, 0xbe, 0xed, 0x0a, 0x66, 0x47, 0xc2, 0xb7, 0x44, 0xc4, 0x63, 0x4e,
-	0x6a, 0xae, 0x60, 0x7a, 0xe7, 0xec, 0xac, 0xe7, 0xe2, 0xb0, 0x49, 0xe0, 0x7a, 0x4c, 0xe3, 0x09,
-	0x0f, 0x99, 0xbf, 0x74, 0xe8, 0xb7, 0x84, 0xca, 0xd8, 0x9c, 0xc1, 0xcd, 0x41, 0x4d, 0x0a, 0x3e,
-	0x97, 0x94, 0x3c, 0x83, 0x86, 0x48, 0x2b, 0x8c, 0x4a, 0x4d, 0xbd, 0xaf, 0x75, 0x9b, 0xbd, 0xa6,
-	0xe5, 0x0a, 0x66, 0xe1, 0x58, 0xd1, 0x24, 0x5d, 0x68, 0xc8, 0xc4, 0xfb, 0x42, 0xfd, 0x58, 0x6a,
-	0x0f, 0xb2, 0xc1, 0x87, 0xd9, 0xe0, 0x34, 0x2f, 0x3a, 0x45, 0xd7, 0x7c, 0x03, 0xd7, 0x83, 0x20,
-	0x28, 0xed, 0x26, 0x4f, 0xa0, 0x9e, 0x91, 0x96, 0x9a, 0x7a, 0xaf, 0x56, 0x97, 0x60, 0xcb, 0xbc,
-	0x85, 0x9b, 0x83, 0x60, 0xfe, 0x80, 0x29, 0x6d, 0x44, 0xc3, 0x7f, 0xa3, 0x1d, 0x04, 0x91, 0xf6,
-	0x16, 0x5a, 0x83, 0x20, 0x18, 0x47, 0x3c, 0x11, 0x65, 0x64, 0x07, 0x2e, 0xf0, 0x05, 0x90, 0x59,
-	0x7e, 0xbb, 0x5d, 0xd3, 0xd4, 0xa0, 0x5d, 0x05, 0xec, 0xd1, 0x23, 0x1a, 0xfe, 0x1f, 0xba, 0x0a,
-	0x40, 0xf4, 0x6b, 0xb8, 0x7a, 0x3f, 0x9f, 0xf1, 0xc8, 0xa7, 0x7f, 0xf5, 0x0f, 0x3c, 0x87, 0x47,
-	0x45, 0x0c, 0x75, 0xb7, 0xa1, 0x1e, 0x51, 0x99, 0x84, 0xf9, 0xa3, 0x34, 0x1c, 0xfc, 0xd5, 0xfb,
-	0x5e, 0x83, 0xa6, 0x33, 0x1c, 0xbc, 0x9b, 0xd2, 0x68, 0xc1, 0x7c, 0x4a, 0xfa, 0x70, 0x59, 0x9c,
-	0x15, 0xd2, 0xca, 0xe0, 0xd5, 0xf3, 0xa4, 0xb7, 0xab, 0x65, 0xdc, 0xd1, 0x87, 0xcb, 0x42, 0x23,
-	0x66, 0xab, 0xe7, 0x01, 0xb3, 0x47, 0xb6, 0xd3, 0x6c, 0x21, 0x0d, 0xb3, 0x55, 0xfb, 0x98, 0x3d,
-	0x72, 0x4b, 0x3e, 0xc0, 0x55, 0x59, 0x0d, 0xd1, 0x77, 0x5b, 0x8e, 0xad, 0xe8, 0x77, 0x27, 0x7b,
-	0x7b, 0x54, 0x59, 0x05, 0xa2, 0x4e, 0x0a, 0x46, 0xd4, 0x69, 0x77, 0xe4, 0x15, 0x5c, 0xa0, 0x04,
-	0x72, 0x9b, 0xcd, 0x95, 0x4d, 0xea, 0x8f, 0xcb, 0xc5, 0x3c, 0x35, 0x74, 0x56, 0xbf, 0x0d, 0x65,
-	0xb5, 0x31, 0xd4, 0xf5, 0xc6, 0x50, 0x7f, 0x6d, 0x0c, 0xf5, 0xc7, 0xd6, 0x50, 0xd6, 0x5b, 0x43,
-	0xf9, 0xb9, 0x35, 0x14, 0x68, 0x31, 0x6e, 0xa5, 0x5f, 0xbf, 0x25, 0x73, 0x5d, 0xd2, 0x4a, 0x3f,
-	0xfd, 0x89, 0xfa, 0xf1, 0xee, 0xcc, 0xf5, 0xe0, 0xd5, 0xb3, 0xab, 0xe1, 0xe5, 0x9f, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x2b, 0xce, 0xa8, 0x2b, 0x70, 0x04, 0x00, 0x00,
+	// 554 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x94, 0x41, 0x8f, 0xd2, 0x40,
+	0x14, 0xc7, 0xe9, 0xa2, 0x2c, 0xfb, 0x30, 0x88, 0x83, 0x40, 0xd3, 0xd5, 0x86, 0xd4, 0x88, 0x78,
+	0xb0, 0x24, 0xa8, 0x31, 0xf1, 0xe0, 0xca, 0x8a, 0x21, 0x7b, 0x30, 0x6e, 0xba, 0x9e, 0xbc, 0xd1,
+	0x32, 0xea, 0x68, 0xa5, 0x63, 0xa7, 0xdd, 0x84, 0x6f, 0xe1, 0x37, 0xf1, 0x6b, 0xec, 0x71, 0x8f,
+	0x1e, 0x15, 0xbe, 0x88, 0x61, 0xfa, 0x28, 0x74, 0xa8, 0x1b, 0xd7, 0xbd, 0xc1, 0xfb, 0xff, 0xdf,
+	0xef, 0x4d, 0x5f, 0xff, 0x1d, 0xb8, 0xff, 0x91, 0x45, 0x9f, 0x62, 0xd7, 0xf6, 0x82, 0xaf, 0xbd,
+	0x53, 0x36, 0xa5, 0x8f, 0x58, 0xd0, 0x0b, 0xdd, 0xb1, 0xd7, 0x1b, 0x73, 0xd6, 0x0b, 0xb9, 0x67,
+	0xf3, 0x30, 0x88, 0x02, 0x52, 0x1c, 0x73, 0x66, 0x74, 0x2e, 0xf4, 0xba, 0x63, 0x34, 0x5b, 0x2d,
+	0x68, 0x8c, 0x68, 0x34, 0xf0, 0xfd, 0xe3, 0xc0, 0x67, 0x1e, 0xa3, 0xc2, 0xa1, 0xdf, 0x62, 0x2a,
+	0x22, 0xeb, 0x0b, 0x34, 0x55, 0x41, 0xf0, 0x60, 0x2a, 0x28, 0x79, 0x00, 0x65, 0x8e, 0x35, 0x5d,
+	0x6b, 0x17, 0xbb, 0x95, 0x7e, 0xc5, 0x1e, 0x73, 0x66, 0x4b, 0xe3, 0xcc, 0x49, 0x45, 0xd2, 0x85,
+	0xb2, 0x88, 0xdd, 0xcf, 0xd4, 0x8b, 0x84, 0xbe, 0x23, 0x8d, 0x37, 0xa4, 0xf1, 0x24, 0x29, 0x3a,
+	0xa9, 0x6a, 0x75, 0x80, 0x8c, 0x68, 0xa4, 0x1c, 0x81, 0xd4, 0xa0, 0x28, 0x62, 0x57, 0xd7, 0xda,
+	0x5a, 0x77, 0xcf, 0x59, 0xfe, 0xb4, 0x5e, 0x40, 0x3d, 0xe3, 0xbb, 0xe4, 0x89, 0xac, 0x67, 0x50,
+	0x1b, 0x4c, 0x26, 0x58, 0xc6, 0x29, 0xf7, 0xa0, 0x24, 0xf5, 0x99, 0x1c, 0xa4, 0xb4, 0xa2, 0x64,
+	0xd5, 0xe1, 0xd6, 0x46, 0x63, 0x32, 0x76, 0x49, 0x1b, 0x52, 0xff, 0xff, 0x68, 0x1b, 0x8d, 0x48,
+	0x7b, 0x03, 0xad, 0x11, 0x8d, 0x46, 0x61, 0x10, 0x73, 0x75, 0x11, 0x6d, 0xb8, 0xce, 0xa3, 0x19,
+	0xa7, 0x92, 0x59, 0xed, 0x43, 0xc2, 0x7c, 0x37, 0xe3, 0xd4, 0x49, 0x84, 0xd5, 0xaa, 0x76, 0xd6,
+	0xab, 0x1a, 0x82, 0xbe, 0x8d, 0xc3, 0x7d, 0xfd, 0xfb, 0x8b, 0x39, 0x80, 0xc6, 0x60, 0x32, 0x59,
+	0x53, 0xd2, 0xe7, 0xec, 0xc0, 0x2e, 0x9a, 0xf0, 0x41, 0xb3, 0x84, 0x95, 0x68, 0xe9, 0xd0, 0x54,
+	0x01, 0xf8, 0xbc, 0x07, 0xd0, 0x18, 0x52, 0xff, 0x6a, 0x68, 0x15, 0x80, 0xe8, 0xa7, 0x50, 0x7d,
+	0x3d, 0xfd, 0x10, 0x84, 0x1e, 0xbd, 0xd4, 0x6b, 0x79, 0x08, 0x37, 0xd3, 0x36, 0xdc, 0x54, 0x13,
+	0x4a, 0x21, 0x15, 0xb1, 0x9f, 0x1c, 0xa5, 0xec, 0xe0, 0xbf, 0xfe, 0x8f, 0x6b, 0x50, 0x71, 0x0e,
+	0x07, 0xaf, 0x4e, 0x68, 0x78, 0xca, 0x3c, 0x4a, 0x8e, 0xa0, 0x9a, 0xfd, 0x5a, 0x88, 0x21, 0x27,
+	0xe4, 0x7e, 0x5b, 0xc6, 0x7e, 0xae, 0x86, 0x23, 0x5f, 0x42, 0x65, 0x23, 0xe3, 0xa4, 0xb5, 0xf2,
+	0xaa, 0x10, 0x7d, 0x5b, 0x40, 0xc2, 0x73, 0xd8, 0x4b, 0xc3, 0x4a, 0x1a, 0xd2, 0xa6, 0xa6, 0xde,
+	0x68, 0xaa, 0xe5, 0x75, 0x6f, 0x1a, 0x4d, 0xec, 0x55, 0x33, 0x8e, 0xbd, 0x5b, 0x09, 0x26, 0x6f,
+	0xa1, 0xa6, 0x46, 0x8e, 0xdc, 0x59, 0x9d, 0x32, 0x2f, 0xd8, 0xc6, 0xdd, 0xbf, 0xa8, 0x08, 0x3c,
+	0x82, 0x6a, 0x36, 0x3c, 0xb8, 0xd5, 0xdc, 0x48, 0xe2, 0x56, 0xf3, 0xd3, 0xb6, 0x44, 0x65, 0xc3,
+	0x82, 0xa8, 0xdc, 0x08, 0x22, 0x2a, 0x3f, 0x5d, 0xe4, 0x09, 0xec, 0x62, 0x4c, 0x48, 0x5d, 0xfa,
+	0xb2, 0x59, 0x33, 0x6e, 0x67, 0x8b, 0x49, 0xd7, 0xa1, 0x73, 0xf6, 0xdb, 0x2c, 0x9c, 0xcd, 0x4d,
+	0xed, 0x7c, 0x6e, 0x6a, 0xbf, 0xe6, 0xa6, 0xf6, 0x7d, 0x61, 0x16, 0xce, 0x17, 0x66, 0xe1, 0xe7,
+	0xc2, 0x2c, 0x40, 0x83, 0x05, 0xf6, 0xf2, 0x9a, 0xb6, 0x45, 0x12, 0x28, 0x61, 0x2f, 0xef, 0xe8,
+	0x63, 0xed, 0xfd, 0xfe, 0x05, 0xf7, 0xb8, 0x5b, 0x92, 0x77, 0xf8, 0xe3, 0x3f, 0x01, 0x00, 0x00,
+	0xff, 0xff, 0xb5, 0xf6, 0x7b, 0x0e, 0x19, 0x06, 0x00, 0x00,
 }
 
-func (m *GetPolicyRequest) XSize() (n int) {
+func (m *GetAllPoliciesRequest) XSize() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -532,7 +692,7 @@ func (m *GetPolicyRequest) XSize() (n int) {
 	return n
 }
 
-func (m *GetPolicyResponse) XSize() (n int) {
+func (m *GetAllPoliciesResponse) XSize() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -546,6 +706,34 @@ func (m *GetPolicyResponse) XSize() (n int) {
 	}
 	if len(m.Subjects) > 0 {
 		for _, e := range m.Subjects {
+			l = e.XSize()
+			n += 1 + l + sovRpc(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *GetPoliciesRequest) XSize() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Sub)
+	if l > 0 {
+		n += 1 + l + sovRpc(uint64(l))
+	}
+	return n
+}
+
+func (m *GetPoliciesResponse) XSize() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Policies) > 0 {
+		for _, e := range m.Policies {
 			l = e.XSize()
 			n += 1 + l + sovRpc(uint64(l))
 		}
@@ -594,6 +782,37 @@ func (m *DelPolicyResponse) XSize() (n int) {
 	}
 	var l int
 	_ = l
+	return n
+}
+
+func (m *GetGroupPoliciesRequest) XSize() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Ptype != 0 {
+		n += 1 + sovRpc(uint64(m.Ptype))
+	}
+	l = len(m.Sub)
+	if l > 0 {
+		n += 1 + l + sovRpc(uint64(l))
+	}
+	return n
+}
+
+func (m *GetGroupPoliciesResponse) XSize() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Subjects) > 0 {
+		for _, e := range m.Subjects {
+			l = e.XSize()
+			n += 1 + l + sovRpc(uint64(l))
+		}
+	}
 	return n
 }
 
@@ -672,7 +891,7 @@ func sovRpc(x uint64) (n int) {
 func sozRpc(x uint64) (n int) {
 	return sovRpc(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *GetPolicyRequest) Marshal() (dAtA []byte, err error) {
+func (m *GetAllPoliciesRequest) Marshal() (dAtA []byte, err error) {
 	size := m.XSize()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -682,12 +901,12 @@ func (m *GetPolicyRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *GetPolicyRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *GetAllPoliciesRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.XSize()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *GetPolicyRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *GetAllPoliciesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -695,7 +914,7 @@ func (m *GetPolicyRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *GetPolicyResponse) Marshal() (dAtA []byte, err error) {
+func (m *GetAllPoliciesResponse) Marshal() (dAtA []byte, err error) {
 	size := m.XSize()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -705,12 +924,12 @@ func (m *GetPolicyResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *GetPolicyResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *GetAllPoliciesResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.XSize()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *GetPolicyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *GetAllPoliciesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -729,6 +948,73 @@ func (m *GetPolicyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			dAtA[i] = 0x12
 		}
 	}
+	if len(m.Policies) > 0 {
+		for iNdEx := len(m.Policies) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Policies[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintRpc(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetPoliciesRequest) Marshal() (dAtA []byte, err error) {
+	size := m.XSize()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetPoliciesRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.XSize()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetPoliciesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Sub) > 0 {
+		i -= len(m.Sub)
+		copy(dAtA[i:], m.Sub)
+		i = encodeVarintRpc(dAtA, i, uint64(len(m.Sub)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetPoliciesResponse) Marshal() (dAtA []byte, err error) {
+	size := m.XSize()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetPoliciesResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.XSize()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetPoliciesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
 	if len(m.Policies) > 0 {
 		for iNdEx := len(m.Policies) - 1; iNdEx >= 0; iNdEx-- {
 			{
@@ -859,6 +1145,78 @@ func (m *DelPolicyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *GetGroupPoliciesRequest) Marshal() (dAtA []byte, err error) {
+	size := m.XSize()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetGroupPoliciesRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.XSize()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetGroupPoliciesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Sub) > 0 {
+		i -= len(m.Sub)
+		copy(dAtA[i:], m.Sub)
+		i = encodeVarintRpc(dAtA, i, uint64(len(m.Sub)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Ptype != 0 {
+		i = encodeVarintRpc(dAtA, i, uint64(m.Ptype))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *GetGroupPoliciesResponse) Marshal() (dAtA []byte, err error) {
+	size := m.XSize()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *GetGroupPoliciesResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.XSize()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *GetGroupPoliciesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Subjects) > 0 {
+		for iNdEx := len(m.Subjects) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Subjects[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintRpc(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x12
+		}
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -1057,7 +1415,7 @@ func encodeVarintRpc(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *GetPolicyRequest) Unmarshal(dAtA []byte) error {
+func (m *GetAllPoliciesRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1080,10 +1438,10 @@ func (m *GetPolicyRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GetPolicyRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: GetAllPoliciesRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetPolicyRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: GetAllPoliciesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1107,7 +1465,7 @@ func (m *GetPolicyRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *GetPolicyResponse) Unmarshal(dAtA []byte) error {
+func (m *GetAllPoliciesResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1130,10 +1488,10 @@ func (m *GetPolicyResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GetPolicyResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: GetAllPoliciesResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetPolicyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: GetAllPoliciesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1201,6 +1559,172 @@ func (m *GetPolicyResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Subjects = append(m.Subjects, &Subject{})
 			if err := m.Subjects[len(m.Subjects)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRpc(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetPoliciesRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRpc
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetPoliciesRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetPoliciesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sub", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRpc
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthRpc
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sub = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRpc(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetPoliciesResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRpc
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetPoliciesResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetPoliciesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Policies", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRpc
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRpc
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Policies = append(m.Policies, &Policy{})
+			if err := m.Policies[len(m.Policies)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1476,6 +2000,191 @@ func (m *DelPolicyResponse) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: DelPolicyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRpc(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetGroupPoliciesRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRpc
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetGroupPoliciesRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetGroupPoliciesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Ptype", wireType)
+			}
+			m.Ptype = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRpc
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Ptype |= PType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sub", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRpc
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthRpc
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sub = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipRpc(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *GetGroupPoliciesResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowRpc
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: GetGroupPoliciesResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: GetGroupPoliciesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subjects", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowRpc
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthRpc
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthRpc
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Subjects = append(m.Subjects, &Subject{})
+			if err := m.Subjects[len(m.Subjects)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipRpc(dAtA[iNdEx:])
@@ -2014,9 +2723,11 @@ var (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RBACServiceClient interface {
-	GetPolicy(ctx context.Context, in *GetPolicyRequest, opts ...grpc.CallOption) (*GetPolicyResponse, error)
+	GetAllPolicies(ctx context.Context, in *GetAllPoliciesRequest, opts ...grpc.CallOption) (*GetAllPoliciesResponse, error)
+	GetPolicies(ctx context.Context, in *GetPoliciesRequest, opts ...grpc.CallOption) (*GetPoliciesResponse, error)
 	AddPolicy(ctx context.Context, in *AddPolicyRequest, opts ...grpc.CallOption) (*AddPolicyResponse, error)
 	DelPolicy(ctx context.Context, in *DelPolicyRequest, opts ...grpc.CallOption) (*DelPolicyResponse, error)
+	GetGroupPolicies(ctx context.Context, in *GetGroupPoliciesRequest, opts ...grpc.CallOption) (*GetGroupPoliciesResponse, error)
 	AddGroupPolicy(ctx context.Context, in *AddGroupPolicyRequest, opts ...grpc.CallOption) (*AddGroupPolicyResponse, error)
 	DelGroupPolicy(ctx context.Context, in *DelGroupPolicyRequest, opts ...grpc.CallOption) (*DelGroupPolicyResponse, error)
 	Enforce(ctx context.Context, in *EnforceRequest, opts ...grpc.CallOption) (*EnforceResponse, error)
@@ -2030,9 +2741,18 @@ func NewRBACServiceClient(cc *grpc.ClientConn) RBACServiceClient {
 	return &rBACServiceClient{cc}
 }
 
-func (c *rBACServiceClient) GetPolicy(ctx context.Context, in *GetPolicyRequest, opts ...grpc.CallOption) (*GetPolicyResponse, error) {
-	out := new(GetPolicyResponse)
-	err := c.cc.Invoke(ctx, "/api.RBACService/GetPolicy", in, out, opts...)
+func (c *rBACServiceClient) GetAllPolicies(ctx context.Context, in *GetAllPoliciesRequest, opts ...grpc.CallOption) (*GetAllPoliciesResponse, error) {
+	out := new(GetAllPoliciesResponse)
+	err := c.cc.Invoke(ctx, "/api.RBACService/GetAllPolicies", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rBACServiceClient) GetPolicies(ctx context.Context, in *GetPoliciesRequest, opts ...grpc.CallOption) (*GetPoliciesResponse, error) {
+	out := new(GetPoliciesResponse)
+	err := c.cc.Invoke(ctx, "/api.RBACService/GetPolicies", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2051,6 +2771,15 @@ func (c *rBACServiceClient) AddPolicy(ctx context.Context, in *AddPolicyRequest,
 func (c *rBACServiceClient) DelPolicy(ctx context.Context, in *DelPolicyRequest, opts ...grpc.CallOption) (*DelPolicyResponse, error) {
 	out := new(DelPolicyResponse)
 	err := c.cc.Invoke(ctx, "/api.RBACService/DelPolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rBACServiceClient) GetGroupPolicies(ctx context.Context, in *GetGroupPoliciesRequest, opts ...grpc.CallOption) (*GetGroupPoliciesResponse, error) {
+	out := new(GetGroupPoliciesResponse)
+	err := c.cc.Invoke(ctx, "/api.RBACService/GetGroupPolicies", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2086,9 +2815,11 @@ func (c *rBACServiceClient) Enforce(ctx context.Context, in *EnforceRequest, opt
 
 // RBACServiceServer is the server API for RBACService service.
 type RBACServiceServer interface {
-	GetPolicy(context.Context, *GetPolicyRequest) (*GetPolicyResponse, error)
+	GetAllPolicies(context.Context, *GetAllPoliciesRequest) (*GetAllPoliciesResponse, error)
+	GetPolicies(context.Context, *GetPoliciesRequest) (*GetPoliciesResponse, error)
 	AddPolicy(context.Context, *AddPolicyRequest) (*AddPolicyResponse, error)
 	DelPolicy(context.Context, *DelPolicyRequest) (*DelPolicyResponse, error)
+	GetGroupPolicies(context.Context, *GetGroupPoliciesRequest) (*GetGroupPoliciesResponse, error)
 	AddGroupPolicy(context.Context, *AddGroupPolicyRequest) (*AddGroupPolicyResponse, error)
 	DelGroupPolicy(context.Context, *DelGroupPolicyRequest) (*DelGroupPolicyResponse, error)
 	Enforce(context.Context, *EnforceRequest) (*EnforceResponse, error)
@@ -2098,14 +2829,20 @@ type RBACServiceServer interface {
 type UnimplementedRBACServiceServer struct {
 }
 
-func (*UnimplementedRBACServiceServer) GetPolicy(ctx context.Context, req *GetPolicyRequest) (*GetPolicyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPolicy not implemented")
+func (*UnimplementedRBACServiceServer) GetAllPolicies(ctx context.Context, req *GetAllPoliciesRequest) (*GetAllPoliciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllPolicies not implemented")
+}
+func (*UnimplementedRBACServiceServer) GetPolicies(ctx context.Context, req *GetPoliciesRequest) (*GetPoliciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPolicies not implemented")
 }
 func (*UnimplementedRBACServiceServer) AddPolicy(ctx context.Context, req *AddPolicyRequest) (*AddPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddPolicy not implemented")
 }
 func (*UnimplementedRBACServiceServer) DelPolicy(ctx context.Context, req *DelPolicyRequest) (*DelPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelPolicy not implemented")
+}
+func (*UnimplementedRBACServiceServer) GetGroupPolicies(ctx context.Context, req *GetGroupPoliciesRequest) (*GetGroupPoliciesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGroupPolicies not implemented")
 }
 func (*UnimplementedRBACServiceServer) AddGroupPolicy(ctx context.Context, req *AddGroupPolicyRequest) (*AddGroupPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddGroupPolicy not implemented")
@@ -2121,20 +2858,38 @@ func RegisterRBACServiceServer(s *grpc.Server, srv RBACServiceServer) {
 	s.RegisterService(&_RBACService_serviceDesc, srv)
 }
 
-func _RBACService_GetPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetPolicyRequest)
+func _RBACService_GetAllPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllPoliciesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RBACServiceServer).GetPolicy(ctx, in)
+		return srv.(RBACServiceServer).GetAllPolicies(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/api.RBACService/GetPolicy",
+		FullMethod: "/api.RBACService/GetAllPolicies",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RBACServiceServer).GetPolicy(ctx, req.(*GetPolicyRequest))
+		return srv.(RBACServiceServer).GetAllPolicies(ctx, req.(*GetAllPoliciesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RBACService_GetPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPoliciesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RBACServiceServer).GetPolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.RBACService/GetPolicies",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RBACServiceServer).GetPolicies(ctx, req.(*GetPoliciesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2171,6 +2926,24 @@ func _RBACService_DelPolicy_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RBACServiceServer).DelPolicy(ctx, req.(*DelPolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RBACService_GetGroupPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGroupPoliciesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RBACServiceServer).GetGroupPolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.RBACService/GetGroupPolicies",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RBACServiceServer).GetGroupPolicies(ctx, req.(*GetGroupPoliciesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -2234,8 +3007,12 @@ var _RBACService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*RBACServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetPolicy",
-			Handler:    _RBACService_GetPolicy_Handler,
+			MethodName: "GetAllPolicies",
+			Handler:    _RBACService_GetAllPolicies_Handler,
+		},
+		{
+			MethodName: "GetPolicies",
+			Handler:    _RBACService_GetPolicies_Handler,
 		},
 		{
 			MethodName: "AddPolicy",
@@ -2244,6 +3021,10 @@ var _RBACService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DelPolicy",
 			Handler:    _RBACService_DelPolicy_Handler,
+		},
+		{
+			MethodName: "GetGroupPolicies",
+			Handler:    _RBACService_GetGroupPolicies_Handler,
 		},
 		{
 			MethodName: "AddGroupPolicy",

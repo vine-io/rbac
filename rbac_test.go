@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/vine-io/rbac/adpter"
+	"github.com/vine-io/rbac/adapter"
 	"github.com/vine-io/rbac/api"
 	vapi "github.com/vine-io/vine/lib/api"
 	"gorm.io/driver/sqlite"
@@ -23,7 +23,7 @@ func TestNewRBAC(t *testing.T) {
 
 	defer os.Remove(dsn)
 
-	apt, err := adpter.NewGormAdapter(db)
+	apt, err := adapter.NewGormAdapter(db)
 	if err != nil {
 		log.Fatal(err)
 	}

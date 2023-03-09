@@ -5,12 +5,13 @@ import (
 	"os"
 	"testing"
 
-	"github.com/vine-io/rbac/adpter"
+	"github.com/vine-io/rbac/adapter"
 	"github.com/vine-io/rbac/api"
 	"github.com/vine-io/vine"
 	vclient "github.com/vine-io/vine/core/client"
 	"github.com/vine-io/vine/core/client/grpc"
 	vapi "github.com/vine-io/vine/lib/api"
+	clientv3 "go.etcd.io/etcd/client/v3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -34,7 +35,40 @@ func newDBInstance(t *testing.T) *gorm.DB {
 func newRBACServerWithApt(t *testing.T) *RBACServer {
 	db := newDBInstance(t)
 
-	apt, err := adpter.NewGormAdapter(db)
+	apt, err := adapter.NewGormAdapter(db)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	s := vine.NewService(vine.Name(name), vine.Address(addr))
+	_ = s.Init()
+
+	server, err := NewRBACServerWithApt(s, apt)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err = api.RegisterRBACServiceHandler(s.Server(), server); err != nil {
+		t.Fatal(err)
+	}
+
+	if err = s.Server().Start(); err != nil {
+		t.Fatal(err)
+	}
+
+	return server
+}
+
+func newRBACServerWithEtcd(t *testing.T) *RBACServer {
+	conn, err := clientv3.New(clientv3.Config{
+		Endpoints: []string{"127.0.0.1:2379"},
+	})
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	apt, err := adapter.NewEtcdAdapter(conn)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,11 +97,13 @@ func TestNewRBACServerWithApt(t *testing.T) {
 	os.Remove(dsn)
 }
 
-func TestRBACServer_AddPolicy(t *testing.T) {
-	_ = newRBACServerWithApt(t)
-	ctx := context.TODO()
-	defer os.Remove(dsn)
+func TestNewRBACServerWithEtcdApt(t *testing.T) {
+	newRBACServerWithEtcd(t)
+	os.Remove(dsn)
+}
 
+func testServer(t *testing.T) {
+	ctx := context.TODO()
 	conn := grpc.NewClient()
 	client := api.NewRBACService(name, conn)
 	user := "lack"
@@ -117,4 +153,17 @@ func TestRBACServer_AddPolicy(t *testing.T) {
 	if err != nil || !rsp.Result {
 		t.Fatal("enforce failed")
 	}
+}
+
+func TestRBACServer_AddPolicy(t *testing.T) {
+	_ = newRBACServerWithApt(t)
+	defer os.Remove(dsn)
+
+	testServer(t)
+}
+
+func TestRBACServerEtcd_AddPolicy(t *testing.T) {
+	_ = newRBACServerWithEtcd(t)
+
+	testServer(t)
 }

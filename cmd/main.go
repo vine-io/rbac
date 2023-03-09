@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/vine-io/rbac/adpter"
+	"github.com/vine-io/rbac/adapter"
 	"github.com/vine-io/rbac/api"
 	"github.com/vine-io/rbac/server"
 	"github.com/vine-io/vine"
@@ -21,7 +21,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	apt, err := adpter.NewGormAdapter(db)
+	apt, err := adapter.NewGormAdapter(db)
 	if err != nil {
 		log.Fatal(err)
 	}

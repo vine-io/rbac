@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"github.com/vine-io/rbac"
-	"github.com/vine-io/rbac/adpter"
+	"github.com/vine-io/rbac/adapter"
 	api "github.com/vine-io/rbac/api"
 	vapi "github.com/vine-io/vine/lib/api"
 	"gorm.io/driver/sqlite"

@@ -10,7 +10,8 @@ import (
 
 	"github.com/vine-io/rbac"
 	"github.com/vine-io/rbac/adpter"
-	"github.com/vine-io/vine/lib/api"
+	api "github.com/vine-io/rbac/api"
+	vapi "github.com/vine-io/vine/lib/api"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -40,10 +41,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	r.Enforce(context.TODO(), "user", &api.Endpoint{
-		Name:   "object",
-		Entity: "object",
-		Method: []string{"read"},
+	r.Enforce(context.TODO(), &api.Policy{
+		Sub: "lack",
+		Endpoint: &vapi.Endpoint{
+			Entity: "user",
+			Method: []string{"read"},
+		},
 	})
 }
 

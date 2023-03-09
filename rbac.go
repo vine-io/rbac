@@ -12,11 +12,12 @@ import (
 )
 
 type RBAC interface {
-	AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
-	DelPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
+	GetPolicy(ctx context.Context) ([]*api.Policy, []*api.Subject)
+	AddPolicy(ctx context.Context, p *api.Policy) error
+	DelPolicy(ctx context.Context, p *api.Policy) error
 	AddGroupPolicy(ctx context.Context, subject *api.Subject) error
 	DelGroupPolicy(ctx context.Context, subject *api.Subject) error
-	Enforce(ctx context.Context, sub string, endpoint *vapi.Endpoint) (bool, error)
+	Enforce(ctx context.Context, p *api.Policy) (bool, error)
 }
 
 var _ RBAC = (*rbac)(nil)
@@ -81,10 +82,50 @@ func NewRBAC(cfg Config) (RBAC, error) {
 
 	return &rbac{Config: cfg, e: e}, nil
 }
-func (r *rbac) AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error {
-	obj, act := parseEndpoint(endpoint)
 
-	ok, err := r.e.AddPolicy(sub, obj, act)
+func (r *rbac) GetPolicy(ctx context.Context) ([]*api.Policy, []*api.Subject) {
+
+	policies := make([]*api.Policy, 0)
+	subjects := make([]*api.Subject, 0)
+
+	lines := r.e.GetPolicy()
+	for _, line := range lines {
+		if len(line) < 3 {
+			continue
+		}
+		ep := &vapi.Endpoint{
+			Name:   line[1],
+			Method: line[2:],
+			Entity: line[1],
+		}
+		p := &api.Policy{
+			Ptype:    api.PType_POLICY,
+			Sub:      line[0],
+			Endpoint: ep,
+		}
+		policies = append(policies, p)
+	}
+
+	groups := r.e.GetGroupingPolicy()
+	for _, group := range groups {
+		if len(group) < 3 {
+			continue
+		}
+		s := &api.Subject{
+			Ptype: api.ParsePtype(group[0]),
+			User:  group[1],
+			Group: group[2],
+		}
+		subjects = append(subjects, s)
+	}
+
+	return policies, subjects
+}
+
+func (r *rbac) AddPolicy(ctx context.Context, p *api.Policy) error {
+	obj, act := parseEndpoint(p.Endpoint)
+
+	ok, err := r.e.AddPolicy(p.Sub, obj, act)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrCasbin, err)
 	}
@@ -96,10 +137,10 @@ func (r *rbac) AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoin
 	return nil
 }
 
-func (r *rbac) DelPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error {
-	obj, act := parseEndpoint(endpoint)
+func (r *rbac) DelPolicy(ctx context.Context, p *api.Policy) error {
+	obj, act := parseEndpoint(p.Endpoint)
 
-	ok, err := r.e.RemovePolicy(sub, obj, act)
+	ok, err := r.e.RemovePolicy(p.Sub, obj, act)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrCasbin, err)
 	}
@@ -113,7 +154,15 @@ func (r *rbac) DelPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoin
 
 func (r *rbac) AddGroupPolicy(ctx context.Context, subject *api.Subject) error {
 
-	ok, err := r.e.AddGroupingPolicy(string(subject.PType), subject.User, subject.Group)
+	var ptype string
+	switch subject.Ptype {
+	case api.PType_ROLE, api.PType_GROUP:
+		ptype = subject.Ptype.Name()
+	default:
+		return fmt.Errorf("invalid ptype")
+	}
+
+	ok, err := r.e.AddGroupingPolicy(ptype, subject.User, subject.Group)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrCasbin, err)
 	}
@@ -126,7 +175,16 @@ func (r *rbac) AddGroupPolicy(ctx context.Context, subject *api.Subject) error {
 }
 
 func (r *rbac) DelGroupPolicy(ctx context.Context, subject *api.Subject) error {
-	ok, err := r.e.RemoveGroupingPolicy(string(subject.PType), subject.User, subject.Group)
+
+	var ptype string
+	switch subject.Ptype {
+	case api.PType_ROLE, api.PType_GROUP:
+		ptype = subject.Ptype.Name()
+	default:
+		return fmt.Errorf("invalid ptype")
+	}
+
+	ok, err := r.e.RemoveGroupingPolicy(ptype, subject.User, subject.Group)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrCasbin, err)
 	}
@@ -138,11 +196,11 @@ func (r *rbac) DelGroupPolicy(ctx context.Context, subject *api.Subject) error {
 	return nil
 }
 
-func (r *rbac) Enforce(ctx context.Context, sub string, endpoint *vapi.Endpoint) (bool, error) {
+func (r *rbac) Enforce(ctx context.Context, p *api.Policy) (bool, error) {
 
-	obj, act := parseEndpoint(endpoint)
+	obj, act := parseEndpoint(p.Endpoint)
 
-	ok, err := r.e.Enforce(sub, obj, act)
+	ok, err := r.e.Enforce(p.Sub, obj, act)
 	if err != nil {
 		return false, fmt.Errorf("%w: %v", ErrCasbin, err)
 	}

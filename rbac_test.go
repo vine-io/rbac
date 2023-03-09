@@ -7,7 +7,8 @@ import (
 	"testing"
 
 	"github.com/vine-io/rbac/adpter"
-	"github.com/vine-io/vine/lib/api"
+	"github.com/vine-io/rbac/api"
+	vapi "github.com/vine-io/vine/lib/api"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -37,9 +38,55 @@ func TestNewRBAC(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	r.Enforce(context.TODO(), "user", &api.Endpoint{
-		Name:   "object",
-		Entity: "object",
-		Method: []string{"read"},
+	ctx := context.TODO()
+
+	r.AddPolicy(ctx, &api.Policy{
+		Sub: "lack",
+		Endpoint: &vapi.Endpoint{
+			Method: []string{"read"},
+			Entity: "user",
+		},
 	})
+	r.AddPolicy(ctx, &api.Policy{
+		Sub: "lack",
+		Endpoint: &vapi.Endpoint{
+			Method: []string{"write"},
+			Entity: "user",
+		},
+	})
+	r.AddPolicy(ctx, &api.Policy{
+		Sub: "lack",
+		Endpoint: &vapi.Endpoint{
+			Method: []string{"list"},
+			Entity: "user",
+		},
+	})
+
+	r.AddGroupPolicy(ctx, &api.Subject{
+		Ptype: api.PType_ROLE,
+		User:  "lack",
+		Group: "administrator",
+	})
+
+	r.AddGroupPolicy(ctx, &api.Subject{
+		Ptype: api.PType_GROUP,
+		User:  "lack",
+		Group: "aa",
+	})
+
+	_, err = r.Enforce(ctx, &api.Policy{
+		Sub: "lack",
+		Endpoint: &vapi.Endpoint{
+			Entity: "user",
+			Method: []string{"read"},
+		},
+	})
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	policy, subjects := r.GetPolicy(ctx)
+	t.Log(policy)
+	t.Log(subjects)
 }

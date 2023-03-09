@@ -2,12 +2,11 @@ syntax = "proto3";
 
 package api;
 
+import "github.com/vine-io/rbac/api/rbac.proto";
+
 option go_package = "github.com/vine-io/rbac/api";
 option java_package = "io.vine.services.rbac";
 option java_multiple_files = true;
-
-import "github.com/vine-io/rbac/api/rbac.proto";
-import "github.com/vine-io/vine/lib/api/api.proto";
 
 /*
 AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
@@ -19,20 +18,34 @@ AddPolicy(ctx context.Context, sub string, endpoint *vapi.Endpoint) error
 
 // +gen:openapi
 service RBACService {
+    rpc GetPolicy(GetPolicyRequest) returns (GetPolicyResponse);
     rpc AddPolicy(AddPolicyRequest) returns (AddPolicyResponse);
+    rpc DelPolicy(DelPolicyRequest) returns (DelPolicyResponse);
     rpc AddGroupPolicy(AddGroupPolicyRequest) returns (AddGroupPolicyResponse);
     rpc DelGroupPolicy(DelGroupPolicyRequest) returns (DelGroupPolicyResponse);
     rpc Enforce(EnforceRequest) returns (EnforceResponse);
 }
 
+message GetPolicyRequest {}
+
+message GetPolicyResponse {
+    repeated api.Policy policies = 1;
+    repeated api.Subject subjects = 2;
+}
+
 message AddPolicyRequest {
     // +gen:required
-    string sub = 1;
-    // +gen:required
-    api.Endpoint endpoint = 2;
+    api.Policy policy = 1;
 }
 
 message AddPolicyResponse {}
+
+message DelPolicyRequest {
+    // +gen:required
+    api.Policy policy = 1;
+}
+
+message DelPolicyResponse {}
 
 message AddGroupPolicyRequest {
     // +gen:required
@@ -50,9 +63,7 @@ message DelGroupPolicyResponse {}
 
 message EnforceRequest {
     // +gen:required
-    string sub = 1;
-    // +gen:required
-    api.Endpoint endpoint = 2;
+    api.Policy policy = 1;
 }
 
 message EnforceResponse {

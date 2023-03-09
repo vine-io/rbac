@@ -76,8 +76,7 @@ func TestRBACServer_AddPolicy(t *testing.T) {
 		Method: []string{"read"},
 	}
 	_, err := client.AddPolicy(ctx, &api.AddPolicyRequest{
-		Sub:      user,
-		Endpoint: ep,
+		Policy: &api.Policy{Sub: user, Endpoint: ep},
 	}, vclient.WithAddress(addr))
 	if err != nil {
 		t.Fatal(err)
@@ -85,7 +84,7 @@ func TestRBACServer_AddPolicy(t *testing.T) {
 
 	_, err = client.AddGroupPolicy(ctx, &api.AddGroupPolicyRequest{
 		Subject: &api.Subject{
-			PType: api.Role,
+			Ptype: api.PType_ROLE,
 			User:  "lack",
 			Group: "admin",
 		},
@@ -94,9 +93,15 @@ func TestRBACServer_AddPolicy(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	rsps, err := client.GetPolicy(ctx, &api.GetPolicyRequest{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rsps.Policies, rsps.Subjects)
+
 	_, err = client.DelGroupPolicy(ctx, &api.DelGroupPolicyRequest{
 		Subject: &api.Subject{
-			PType: api.Role,
+			Ptype: api.PType_ROLE,
 			User:  "lack",
 			Group: "admin",
 		},
@@ -106,8 +111,7 @@ func TestRBACServer_AddPolicy(t *testing.T) {
 	}
 
 	rsp, err := client.Enforce(ctx, &api.EnforceRequest{
-		Sub:      user,
-		Endpoint: ep,
+		Policy: &api.Policy{Sub: user, Endpoint: ep},
 	}, vclient.WithAddress(addr))
 
 	if err != nil || !rsp.Result {

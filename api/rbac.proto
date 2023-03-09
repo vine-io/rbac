@@ -17,12 +17,27 @@ syntax = 'proto3';
 
 package api;
 
-// Package-wide variables from generator "rbac".
+import "github.com/vine-io/vine/lib/api/api.proto";
+
 option go_package = "github.com/vine-io/rbac/api";
 
-// +gogo:genproto=true
+enum PType {
+  UNKNOWN = 0;
+  POLICY = 1; // p
+  ROLE = 2; // g
+  GROUP = 3; // g2
+}
+
+message Policy {
+  PType ptype = 1;
+
+  string sub = 2;
+
+  Endpoint endpoint = 3;
+}
+
 message Subject {
-  string ptype = 1;
+  PType ptype = 1;
 
   string user = 2;
 

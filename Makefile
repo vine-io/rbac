@@ -9,8 +9,8 @@ CGO_ENABLED=0
 BUILD_DATE=$(shell date +%s)
 
 generate:
-	goproto-gen -p $(PACKAGE)/api
 	cd $(PROTODIR)/src && \
+	protoc -I=$(PROTODIR)/src -I=$(DIR)/vendor --gogo_out=:. $(PACKAGE)/api/rbac.proto && \
 	protoc -I=$(PROTODIR)/src -I=$(DIR)/vendor --gogo_out=:. --vine_out=:. $(PACKAGE)/api/rpc.proto
 
 build:

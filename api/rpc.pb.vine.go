@@ -9,7 +9,6 @@ import (
 	proto "github.com/gogo/protobuf/proto"
 	client "github.com/vine-io/vine/core/client"
 	server "github.com/vine-io/vine/core/server"
-	_ "github.com/vine-io/vine/lib/api"
 	api "github.com/vine-io/vine/lib/api"
 	openapi "github.com/vine-io/vine/lib/api/handler/openapi"
 	openapipb "github.com/vine-io/vine/lib/api/handler/openapi/proto"
@@ -59,7 +58,9 @@ func NewRBACServiceOpenAPI() *openapipb.OpenAPI {
 // Client API for RBACService service
 // +gen:openapi
 type RBACService interface {
+	GetPolicy(ctx context.Context, in *GetPolicyRequest, opts ...client.CallOption) (*GetPolicyResponse, error)
 	AddPolicy(ctx context.Context, in *AddPolicyRequest, opts ...client.CallOption) (*AddPolicyResponse, error)
+	DelPolicy(ctx context.Context, in *DelPolicyRequest, opts ...client.CallOption) (*DelPolicyResponse, error)
 	AddGroupPolicy(ctx context.Context, in *AddGroupPolicyRequest, opts ...client.CallOption) (*AddGroupPolicyResponse, error)
 	DelGroupPolicy(ctx context.Context, in *DelGroupPolicyRequest, opts ...client.CallOption) (*DelGroupPolicyResponse, error)
 	Enforce(ctx context.Context, in *EnforceRequest, opts ...client.CallOption) (*EnforceResponse, error)
@@ -77,9 +78,29 @@ func NewRBACService(name string, c client.Client) RBACService {
 	}
 }
 
+func (c *rBACService) GetPolicy(ctx context.Context, in *GetPolicyRequest, opts ...client.CallOption) (*GetPolicyResponse, error) {
+	req := c.c.NewRequest(c.name, "RBACService.GetPolicy", in)
+	out := new(GetPolicyResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rBACService) AddPolicy(ctx context.Context, in *AddPolicyRequest, opts ...client.CallOption) (*AddPolicyResponse, error) {
 	req := c.c.NewRequest(c.name, "RBACService.AddPolicy", in)
 	out := new(AddPolicyResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rBACService) DelPolicy(ctx context.Context, in *DelPolicyRequest, opts ...client.CallOption) (*DelPolicyResponse, error) {
+	req := c.c.NewRequest(c.name, "RBACService.DelPolicy", in)
+	out := new(DelPolicyResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -120,7 +141,9 @@ func (c *rBACService) Enforce(ctx context.Context, in *EnforceRequest, opts ...c
 // Server API for RBACService service
 // +gen:openapi
 type RBACServiceHandler interface {
+	GetPolicy(context.Context, *GetPolicyRequest, *GetPolicyResponse) error
 	AddPolicy(context.Context, *AddPolicyRequest, *AddPolicyResponse) error
+	DelPolicy(context.Context, *DelPolicyRequest, *DelPolicyResponse) error
 	AddGroupPolicy(context.Context, *AddGroupPolicyRequest, *AddGroupPolicyResponse) error
 	DelGroupPolicy(context.Context, *DelGroupPolicyRequest, *DelGroupPolicyResponse) error
 	Enforce(context.Context, *EnforceRequest, *EnforceResponse) error
@@ -128,7 +151,9 @@ type RBACServiceHandler interface {
 
 func RegisterRBACServiceHandler(s server.Server, hdlr RBACServiceHandler, opts ...server.HandlerOption) error {
 	type rBACServiceImpl interface {
+		GetPolicy(ctx context.Context, in *GetPolicyRequest, out *GetPolicyResponse) error
 		AddPolicy(ctx context.Context, in *AddPolicyRequest, out *AddPolicyResponse) error
+		DelPolicy(ctx context.Context, in *DelPolicyRequest, out *DelPolicyResponse) error
 		AddGroupPolicy(ctx context.Context, in *AddGroupPolicyRequest, out *AddGroupPolicyResponse) error
 		DelGroupPolicy(ctx context.Context, in *DelGroupPolicyRequest, out *DelGroupPolicyResponse) error
 		Enforce(ctx context.Context, in *EnforceRequest, out *EnforceResponse) error
@@ -150,8 +175,16 @@ type rBACServiceHandler struct {
 	RBACServiceHandler
 }
 
+func (h *rBACServiceHandler) GetPolicy(ctx context.Context, in *GetPolicyRequest, out *GetPolicyResponse) error {
+	return h.RBACServiceHandler.GetPolicy(ctx, in, out)
+}
+
 func (h *rBACServiceHandler) AddPolicy(ctx context.Context, in *AddPolicyRequest, out *AddPolicyResponse) error {
 	return h.RBACServiceHandler.AddPolicy(ctx, in, out)
+}
+
+func (h *rBACServiceHandler) DelPolicy(ctx context.Context, in *DelPolicyRequest, out *DelPolicyResponse) error {
+	return h.RBACServiceHandler.DelPolicy(ctx, in, out)
 }
 
 func (h *rBACServiceHandler) AddGroupPolicy(ctx context.Context, in *AddGroupPolicyRequest, out *AddGroupPolicyResponse) error {

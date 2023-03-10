@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	DefaultAdminName = "administrator"
+	DefaultAdminName = "admin"
 
 	DefaultModel = fmt.Sprintf(`### rbac model
 [request_definition]
@@ -25,7 +25,7 @@ g2 = _, _
 e = some(where (p.eft == allow))
 
 [matchers]
-m = g(r.sub, p.sub) && g2(r.sub, p.sub) && r.obj == p.obj && r.act == p.act || r.sub == "%s"`, DefaultAdminName)
+m = g(r.sub, p.sub) && g2(r.sub, p.sub) && r.obj == p.obj && r.act == p.act || r.sub == "administrator" || r.sub == "root" || r.sub == "%s"`, DefaultAdminName)
 )
 
 var (

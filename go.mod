@@ -6,7 +6,7 @@ require (
 	github.com/casbin/casbin/v2 v2.64.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/stretchr/testify v1.8.1
-	github.com/vine-io/vine v1.5.9
+	github.com/vine-io/vine v1.6.0
 	go.etcd.io/etcd/client/v3 v3.5.7
 	google.golang.org/grpc v1.52.0
 	gorm.io/driver/sqlite v1.4.4

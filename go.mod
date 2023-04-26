@@ -6,7 +6,7 @@ require (
 	github.com/casbin/casbin/v2 v2.64.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/stretchr/testify v1.8.1
-	github.com/vine-io/vine v1.6.0
+	github.com/vine-io/vine v1.6.5
 	go.etcd.io/etcd/client/v3 v3.5.7
 	google.golang.org/grpc v1.52.0
 	gorm.io/driver/sqlite v1.4.4
@@ -47,7 +47,6 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/rakyll/statik v0.1.7 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/cobra v1.6.1 // indirect
